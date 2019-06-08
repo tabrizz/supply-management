@@ -31,5 +31,11 @@ export const UserRoute = [
     route: "/register",
     controller: AuthController,
     action: "register"
+  },
+  {
+    method: "post",
+    route: "/login",
+    controller: AuthController,
+    action: "login"
   }
 ];
