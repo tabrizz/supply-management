@@ -13,4 +13,7 @@ export class Asset {
 
   @Column()
   quantity: number;
+
+  @Column()
+  status: boolean;
 }

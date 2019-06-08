@@ -1,4 +1,4 @@
-import { getRepository, getConnection } from "typeorm";
+import { getConnection } from "typeorm";
 import { NextFunction, Request, Response } from "express";
 import { User } from "../entity/hr-management/User";
 

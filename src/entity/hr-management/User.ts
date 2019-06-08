@@ -11,6 +11,12 @@ export class User extends BaseEntity {
   @Column()
   lastName: string;
 
+  @Column({ unique: true })
+  email: string;
+
   @Column()
-  age: number;
+  password: string;
+
+  @Column({ default: true })
+  status: boolean;
 }
