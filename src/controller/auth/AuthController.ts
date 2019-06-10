@@ -5,13 +5,14 @@ import bcrypt from "bcryptjs";
 import { User } from "../../entity/hr-management/User";
 
 export class AuthController {
-  private static userRepository = getConnection("hr-management").getRepository(
-    User
-  );
+  // private static userRepository = getConnection("hr-management").getRepository(
+  //   User
+  // );
 
   static login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
-    const user = await AuthController.userRepository.findOne({
+    const userRepository = getConnection("hr-management").getRepository(User);
+    const user = await userRepository.findOne({
       where: { email }
     });
 
@@ -20,12 +21,13 @@ export class AuthController {
     }
 
     const valid = await bcrypt.compare(password, user.password);
-
     if (!valid) {
       return null;
     }
+    console.log(valid);
 
     req.session!.userId = user.id;
+    console.log(user);
 
     return user;
   };

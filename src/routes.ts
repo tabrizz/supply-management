@@ -1,4 +1,11 @@
-import { UserRoute } from "./routes/User";
-import { AssetRoute } from "./routes/AssetRoute";
+import { Router } from "express";
 
-export const Routes = [...UserRoute, ...AssetRoute];
+import auth from "./routes/Auth";
+// import { User } from "./routes/User";
+//import { AssetRoute } from "./routes/Asset";
+
+export const routes = Router();
+
+routes.use("/auth", auth);
+
+export default routes;
