@@ -6,6 +6,6 @@ import auth from "./routes/Auth";
 
 export const routes = Router();
 
-routes.use("/auth", auth);
+routes.use("/", auth);
 
 export default routes;
