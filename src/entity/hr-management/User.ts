@@ -1,6 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  ManyToMany,
+  JoinTable
+} from "typeorm";
 import { IsEmail, IsNotEmpty, MinLength, MaxLength } from "class-validator";
 import bcrypt from "bcryptjs";
+import { Permission } from "./Permission";
+import { Role } from "./Role";
 
 @Entity({ database: "hr-management" })
 export class User extends BaseEntity {
@@ -51,6 +60,14 @@ export class User extends BaseEntity {
 
   @Column({ default: true })
   status: boolean;
+
+  @ManyToMany(type => Role)
+  @JoinTable()
+  roles: Role[];
+
+  @ManyToMany(type => Permission)
+  @JoinTable()
+  permissions: Permission[];
 
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 12);

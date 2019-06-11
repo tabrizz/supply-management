@@ -31,6 +31,6 @@ export class AssetController {
     let assetToRemove = await assetRepository.findOneOrFail(req.params.id);
     await assetRepository.remove(assetToRemove);
 
-    return res.status(201).send("Activo removido");
+    return res.status(201).send({ data: { message: "Activo removido" } });
   }
 }

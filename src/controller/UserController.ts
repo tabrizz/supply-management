@@ -22,6 +22,6 @@ export class UserController {
     const userRepository = getConnection("hr-management").getRepository(User);
     let userToRemove = await userRepository.findOneOrFail(req.params.id);
     await userRepository.remove(userToRemove);
-    return res.status(201).send("Usuario removido");
+    return res.status(201).send({ data: { message: "Usuario removido" } });
   }
 }

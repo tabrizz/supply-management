@@ -31,7 +31,6 @@ export class AuthController {
   static async register(req: Request, res: Response) {
     const userRepository = getConnection("hr-management").getRepository(User);
     const { firstName, lastName, email, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 12);
 
     const user = new User();
     user.firstName = firstName;
