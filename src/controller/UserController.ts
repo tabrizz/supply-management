@@ -3,24 +3,25 @@ import { NextFunction, Request, Response } from "express";
 import { User } from "../entity/hr-management/User";
 
 export class UserController {
-  private userRepository = getConnection("hr-management").getRepository(User);
-
-  async all(request: Request, response: Response, next: NextFunction) {
-    return this.userRepository.find();
+  static async all(req: Request, res: Response, next: NextFunction) {
+    const userRepository = getConnection("hr-management").getRepository(User);
+    return res.status(201).send(await userRepository.find());
   }
 
-  async one(request: Request, response: Response, next: NextFunction) {
-    return this.userRepository.findOne(request.params.id);
+  static async one(req: Request, res: Response, next: NextFunction) {
+    const userRepository = getConnection("hr-management").getRepository(User);
+    return res.status(201).send(await userRepository.findOne(req.params.id));
   }
 
-  async save(request: Request, response: Response, next: NextFunction) {
-    return this.userRepository.save(request.body);
+  static async save(req: Request, res: Response, next: NextFunction) {
+    const userRepository = getConnection("hr-management").getRepository(User);
+    return res.status(201).send(await userRepository.save(req.body));
   }
 
-  async remove(request: Request, response: Response, next: NextFunction) {
-    let userToRemove = await this.userRepository.findOneOrFail(
-      request.params.id
-    );
-    await this.userRepository.remove(userToRemove);
+  static async remove(req: Request, res: Response, next: NextFunction) {
+    const userRepository = getConnection("hr-management").getRepository(User);
+    let userToRemove = await userRepository.findOneOrFail(req.params.id);
+    await userRepository.remove(userToRemove);
+    return res.status(201).send("Usuario removido");
   }
 }

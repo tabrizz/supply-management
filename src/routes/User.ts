@@ -1,41 +1,19 @@
+import { Router } from "express";
 import { UserController } from "../controller/UserController";
-import { AuthController } from "../controller/auth/AuthController";
+import { isAuth } from "../middleware/isAuth";
 
-export const UserRoute = [
-  {
-    method: "get",
-    route: "/users",
-    controller: UserController,
-    action: "all"
-  },
-  {
-    method: "get",
-    route: "/users/:id",
-    controller: UserController,
-    action: "one"
-  },
-  {
-    method: "post",
-    route: "/users",
-    controller: UserController,
-    action: "save"
-  },
-  {
-    method: "delete",
-    route: "/users/:id",
-    controller: UserController,
-    action: "remove"
-  },
-  {
-    method: "post",
-    route: "/register",
-    controller: AuthController,
-    action: "register"
-  },
-  {
-    method: "post",
-    route: "/login",
-    controller: AuthController,
-    action: "login"
-  }
-];
+const router = Router();
+
+//All users route
+router.get("/users", [isAuth], UserController.all);
+
+//User by id route
+router.get("/users/:id", [isAuth], UserController.one);
+
+//Save user route
+router.post("/users", [isAuth], UserController.save);
+
+//Delete user by id route
+router.delete("/users/:id", [isAuth], UserController.remove);
+
+export default router;

@@ -1,11 +1,13 @@
 import { Router } from "express";
 
 import auth from "./routes/Auth";
-// import { User } from "./routes/User";
-//import { AssetRoute } from "./routes/Asset";
+import asset from "./routes/Asset";
+import user from "./routes/User";
 
 export const routes = Router();
 
 routes.use("/", auth);
+routes.use("/", user);
+routes.use("/logistics", asset);
 
 export default routes;

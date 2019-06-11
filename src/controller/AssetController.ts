@@ -3,26 +3,34 @@ import { NextFunction, Request, Response } from "express";
 import { Asset } from "../entity/supply-management/Asset";
 
 export class AssetController {
-  private assetRepository = getConnection("supply-management").getRepository(
-    Asset
-  );
-
-  async all(request: Request, response: Response, next: NextFunction) {
-    return this.assetRepository.find();
-  }
-
-  async one(request: Request, response: Response, next: NextFunction) {
-    return this.assetRepository.findOne(request.params.id);
-  }
-
-  async save(request: Request, response: Response, next: NextFunction) {
-    return this.assetRepository.save(request.body);
-  }
-
-  async remove(request: Request, response: Response, next: NextFunction) {
-    let assetToRemove = await this.assetRepository.findOneOrFail(
-      request.params.id
+  static async all(request: Request, res: Response) {
+    const assetRepository = getConnection("supply-management").getRepository(
+      Asset
     );
-    await this.assetRepository.remove(assetToRemove);
+    return res.status(201).send(await assetRepository.find());
+  }
+
+  static async one(req: Request, res: Response, next: NextFunction) {
+    const assetRepository = getConnection("supply-management").getRepository(
+      Asset
+    );
+    return res.status(201).send(await assetRepository.findOne(req.params.id));
+  }
+
+  static async save(req: Request, res: Response, next: NextFunction) {
+    const assetRepository = getConnection("supply-management").getRepository(
+      Asset
+    );
+    return res.status(201).send(await assetRepository.save(req.body));
+  }
+
+  static async remove(req: Request, res: Response, next: NextFunction) {
+    const assetRepository = getConnection("supply-management").getRepository(
+      Asset
+    );
+    let assetToRemove = await assetRepository.findOneOrFail(req.params.id);
+    await assetRepository.remove(assetToRemove);
+
+    return res.status(201).send("Activo removido");
   }
 }
