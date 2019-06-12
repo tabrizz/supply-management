@@ -4,7 +4,6 @@ import express from "express";
 import bodyParser from "body-parser";
 import helmet from "helmet";
 import cors from "cors";
-import { Request, Response } from "express";
 import routes from "./routes";
 import { redis } from "./redis";
 import session from "express-session";
