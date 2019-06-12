@@ -27,7 +27,7 @@ export class RoleController {
         .execute();
     });
 
-    return res.status(201).send({ data: { message: "Role creado" } });
+    return res.status(201).send({ data: { message: "Rol creado" } });
   }
 
   static async remove(req: Request, res: Response, _: NextFunction) {
