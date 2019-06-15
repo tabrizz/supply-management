@@ -7,23 +7,27 @@ export class PermissionController {
     const permissionRepository = getConnection("hr-management").getRepository(
       Permission
     );
-    return res.status(201).send(await permissionRepository.find());
+    return res
+      .status(200)
+      .send({ data: { permissions: await permissionRepository.find() } });
   }
 
   static async one(req: Request, res: Response, _: NextFunction) {
     const permissionRepository = getConnection("hr-management").getRepository(
       Permission
     );
-    return res
-      .status(201)
-      .send(await permissionRepository.findOne(req.params.id));
+    return res.status(200).send({
+      data: { permissions: await permissionRepository.findOne(req.params.id) }
+    });
   }
 
   static async save(req: Request, res: Response, _: NextFunction) {
     const permissionRepository = getConnection("hr-management").getRepository(
       Permission
     );
-    return res.status(201).send(await permissionRepository.save(req.body));
+    return res.status(201).send({
+      data: { permissions: await permissionRepository.save(req.body) }
+    });
   }
 
   static async remove(req: Request, res: Response, _: NextFunction) {
@@ -35,6 +39,6 @@ export class PermissionController {
     );
     await permissionRepository.remove(permissionToRemove);
 
-    return res.status(201).send({ data: { message: "Permiso removido" } });
+    return res.status(200).send({ data: { message: "Permiso removido" } });
   }
 }

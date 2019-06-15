@@ -16,7 +16,12 @@ const main = async () => {
   const app = express();
   const RedisStore = connectRedis(session);
 
-  app.use(cors());
+  app.use(
+    cors({
+      credentials: true,
+      origin: "http://localhost:8080"
+    })
+  );
   app.use(helmet());
   app.use(bodyParser.json());
 
