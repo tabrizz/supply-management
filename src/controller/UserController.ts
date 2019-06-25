@@ -5,17 +5,23 @@ import { User } from "../entity/hr-management/User";
 export class UserController {
   static async all(_: Request, res: Response) {
     const userRepository = getConnection("hr-management").getRepository(User);
-    return res.status(201).send(await userRepository.find());
+    return res
+      .status(201)
+      .send({ data: { users: await userRepository.find() } });
   }
 
   static async one(req: Request, res: Response) {
     const userRepository = getConnection("hr-management").getRepository(User);
-    return res.status(201).send(await userRepository.findOne(req.params.id));
+    return res
+      .status(201)
+      .send({ data: { users: await userRepository.findOne(req.params.id) } });
   }
 
   static async save(req: Request, res: Response) {
     const userRepository = getConnection("hr-management").getRepository(User);
-    return res.status(201).send(await userRepository.save(req.body));
+    return res
+      .status(201)
+      .send({ data: { users: await userRepository.save(req.body) } });
   }
 
   static async remove(req: Request, res: Response) {

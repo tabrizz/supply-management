@@ -15,17 +15,27 @@ export class AuthController {
     });
 
     if (!user) {
-      return null;
+      return res.status(404).send({ data: { message: "Usuario erróneo" } });
     }
 
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) {
-      return null;
+      return res
+        .status(400)
+        .send({ data: { message: "Contraseña incorrecta" } });
     }
 
     req.session!.userId = user.id;
 
-    return res.send(user);
+    return res.status(200).send({
+      data: {
+        user: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email
+        }
+      }
+    });
   }
 
   static async register(req: Request, res: Response) {
@@ -47,6 +57,8 @@ export class AuthController {
 
     // const createdUser = await userRepository.save(user);
 
-    return res.status(201).send(await userRepository.save(user));
+    return res
+      .status(201)
+      .send({ data: { user: await userRepository.save(user) } });
   }
 }

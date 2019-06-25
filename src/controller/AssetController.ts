@@ -7,21 +7,27 @@ export class AssetController {
     const assetRepository = getConnection("supply-management").getRepository(
       Asset
     );
-    return res.status(201).send(await assetRepository.find());
+    return res
+      .status(201)
+      .send({ data: { assets: await assetRepository.find() } });
   }
 
   static async one(req: Request, res: Response, next: NextFunction) {
     const assetRepository = getConnection("supply-management").getRepository(
       Asset
     );
-    return res.status(201).send(await assetRepository.findOne(req.params.id));
+    return res
+      .status(201)
+      .send({ data: { assets: await assetRepository.findOne(req.params.id) } });
   }
 
   static async save(req: Request, res: Response, next: NextFunction) {
     const assetRepository = getConnection("supply-management").getRepository(
       Asset
     );
-    return res.status(201).send(await assetRepository.save(req.body));
+    return res
+      .status(201)
+      .send({ data: { assets: await assetRepository.save(req.body) } });
   }
 
   static async remove(req: Request, res: Response, next: NextFunction) {
