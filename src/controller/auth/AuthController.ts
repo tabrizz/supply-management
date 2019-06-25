@@ -40,7 +40,7 @@ export class AuthController {
 
     const errors = await validate(user);
     if (errors.length > 0) {
-      res.status(400).send(errors);
+      res.status(400).send({ data: { errors } });
       return;
     }
     await user.hashPassword();
